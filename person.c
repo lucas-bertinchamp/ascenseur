@@ -16,9 +16,10 @@ PersonList* insert(Person* p, PersonList* list) {
 
 int size(PersonList* p) {
     int taille = 0;
-    while (p -> next != NULL) {
+    PersonList* p1 = p;
+    while (p1 != NULL) {
         taille++;
-        PersonList* p = p-> next;
+        p1 = p1-> next;
     }
     return taille;
 }

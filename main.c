@@ -88,6 +88,7 @@ PersonList **waitingLists = malloc(nbFloor*sizeof(PersonList*));
 
   // Animation loop
   bool run=true;
+ 
   while(run) {
     // Generate people in function of input (or quit if 'q')
     int input = wgetch(win);
@@ -103,14 +104,14 @@ PersonList **waitingLists = malloc(nbFloor*sizeof(PersonList*));
     // Update state machine of elevator !!!!
 
     stepElevator(building);
-
+    
     wclear(win);   // clear display area
     box(win, 0,0); // display border of window
 
     DisplayBuilding(win, building);
 
     wrefresh(win); // actual display function
-
+  
   }
 
   endwin(); // correct ending of ncurses
