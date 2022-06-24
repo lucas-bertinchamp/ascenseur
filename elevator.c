@@ -31,30 +31,33 @@ void stepElevator(Building *b){
         }
     }
     b -> waitingLists[b -> elevator -> currentFloor] = enterElevator(b -> elevator, b -> waitingLists[b -> elevator -> currentFloor]);
-    /*
-    b -> elevator -> persons = exitElevator(b -> elevator);
-    b -> elevator -> persons = enterElevator(b -> elevator, b -> waitingLists[b -> elevator -> currentFloor]);
-    */
+    exitElevator(b -> elevator);
+
 }
 
 PersonList* exitElevator(Elevator *e) {
-    PersonList* p = e -> persons;
-    PersonList* p2 = malloc(sizeof(PersonList));
-
-    while (p -> next != NULL){
-        if (p -> person -> dest == e -> currentFloor) {
-            insert(p -> person, p2);
+    PersonList* debut = e -> persons;
+    PersonList* sortie = malloc(sizeof(PersonList));
+    PersonList* fin = NULL;
+    while (debut != NULL){
+        if (debut -> person -> dest == e -> currentFloor) {
+            sortie = insert(debut -> person, sortie);
+        } else {
+            fin = insert(debut -> person, fin);
         }
-        PersonList* p = p -> next;
+        debut = debut -> next;
     }
-    return p2;
+    e -> persons = inversion(fin);
+    return sortie;
 }
 
 PersonList* enterElevator(Elevator *e, PersonList *waitingList){
     PersonList* wList = waitingList;
-    if (size(e -> persons) < e -> capacity) {
-        e -> persons = insert(waitingList -> person ,e -> persons);
-        return wList -> next;
+    if (waitingList != NULL){
+        if (size(e -> persons) < e -> capacity) {
+            e -> persons = insert(waitingList -> person ,e -> persons);
+            return wList -> next;
+        }
     }
     return waitingList;
 }

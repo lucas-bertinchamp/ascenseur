@@ -13,6 +13,7 @@ typedef struct _PersonList {
     struct _PersonList *next;
 } PersonList;
 
+PersonList* inversion(PersonList* p);
 Person* createPerson(int src, int dest);
 PersonList* insert(Person *p, PersonList *list);
 int size(PersonList* p);
